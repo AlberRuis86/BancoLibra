@@ -3,7 +3,7 @@ for (let i = 0; i < 5; i++) {
     console.log(`Iteración ${i}`);
   }
   
-  // Ejemplo de ciclo while
+  // Ciclo while
   let contador = 0;
   while (contador < 3) {
     console.log(`Contador: ${contador}`);
