@@ -1,4 +1,4 @@
-// Ejemplo de ciclo for
+// Ciclo for
 for (let i = 0; i < 5; i++) {
     console.log(`Iteración ${i}`);
   }
