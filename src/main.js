@@ -10,7 +10,7 @@ for (let i = 0; i < 5; i++) {
     contador++;
   }
   
-  // Ejemplo de ciclo do while
+  // Ciclo do while
   let intentos = 0;
   do {
     const contraseña = prompt("Ingrese la contraseña:");
