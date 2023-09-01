@@ -1,27 +1,27 @@
+// Ciclo do while
+let intentos = 0;
+do {
+  const contraseña = prompt("Ingrese la contraseña:");
+  if (contraseña === "secreto") {
+    alert("Contraseña correcta. Acceso permitido.");
+    break;
+  } else {
+    intentos++;
+    alert(`Contraseña incorrecta. Intentos restantes: ${3 - intentos}`);
+  }
+} while (intentos < 3);
+
 // Ciclo for
 for (let i = 0; i < 5; i++) {
-    console.log(`Iteración ${i}`);
-  }
+  console.log(`Iteración ${i}`);
+}
   
   // Ciclo while
-  let contador = 0;
-  while (contador < 3) {
-    console.log(`Contador: ${contador}`);
-    contador++;
-  }
-  
-  // Ciclo do while
-  let intentos = 0;
-  do {
-    const contraseña = prompt("Ingrese la contraseña:");
-    if (contraseña === "secreto") {
-      alert("Contraseña correcta. Acceso permitido.");
-      break;
-    } else {
-      intentos++;
-      alert(`Contraseña incorrecta. Intentos restantes: ${3 - intentos}`);
-    }
-  } while (intentos < 3);
+let contador = 0;
+while (contador < 3) {
+  console.log(`Contador: ${contador}`);
+  contador++;
+}
 
 // Variables usando let
 let nombreCliente = prompt("Ingrese su nombre:");
@@ -72,3 +72,5 @@ if (operacion === "deposito") {
 } else {
   alert("Operación no válida");
 }
+
+

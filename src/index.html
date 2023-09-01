@@ -3,32 +3,113 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link href="..//dist/output.css" rel="stylesheet">
+  <link rel="shortcut icon" href="./img/favicon.ico" type="image/x-icon">
+  <link href="../dist/output.css" rel="stylesheet">
+  <title>Banco Libra</title>
 </head>
 <body>
-  <header>
-     <div class="container grid text-red-400">
-        <ul>
-            <li>
-                <a href="">Inicio</a>
-            </li>
-            <li>
-                <a href="">Nosotros</a>
-            </li>
-            <li>
-                <a href="">Inversiones</a>
-            </li>
-            <li>
-                <a href="">Prestamos</a>
-            </li>
-            <li>
-                <a href="">Contacto</a>
-            </li>
-        </ul>
-     </div>
-  </header>
+    <header class="bg-zinc-800">
+        <nav class="bg-gray-100 p-4 flex items-center justify-between">
+            <div class="flex items-center">
+              <img src="./img/logo.svg" alt="logo">
+            </div>
+            <div class="hidden md:flex space-x-4">
+              <a href="#" class="text-secondary-libra-violet hover:text-blue-300 font-semibold">Inicio</a>
+              <a href="#" class="text-secondary-libra-violet hover:text-blue-300 font-semibold">Inversiones</a>
+              <a href="#" class="text-secondary-libra-violet hover:text-blue-300 font-semibold">Préstamos</a>
+              <a href="#" class="text-secondary-libra-violet hover:text-blue-300 font-semibold">Contacto</a>
+            </div>
+          </nav>
+          
+    </header>
   <main>
-
+    <section class="grid grid-cols-2">
+      <div class="bg-white text-center p-8 grid md:auto-cols-auto">
+        <div class="bg-white text-center">
+          <!-- TITULO -->
+          <h1 class="text-4xl font-bold mb-4">Simula la cuota de tu Préstamo</h1>
+          <div class="flex flex-col mb-8 pt-4">
+            <!-- ENUNCIADO 1 -->
+            <div class="flex items-center mb-2">
+              <div class="w-8 h-8 bg-blue-500 bg-primary-libra-violet text-white flex items-center justify-center rounded-full mr-4 shadow-xl">
+                1
+              </div>
+              <p class="text-2xl font-bold">¿Cobrás tu sueldo o jubilación en Banco Libra?</p>
+            </div>
+            <div class="flex text-center items-center justify-center pt-4">
+              <p class="mr-2 font-semibold">NO</p>
+              <div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in">
+                <input type="checkbox" name="toggle" id="toggle"
+                  class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer">
+                <label for="toggle"
+                  class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
+              </div>
+              <p class="ml-2 font-semibold">SI</p>
+            </div>
+          </div>
+          <!-- ENUNCIADO 2 -->
+          <div class="flex items-center mb-2 pt-4">
+            <div class="w-8 h-8 bg-primary-libra-violet text-white flex items-center justify-center rounded-full mr-4 shadow-xl">
+              2
+            </div>
+            <div>
+              <p class="text-2xl font-bold">Elegí el monto de tu Préstamo</p>
+              <p class="text-lg text-gray-500">Ingresá el monto en miles. Caso contrario se redondeará
+                automáticamente.</p>
+            </div>
+          </div>
+          <!-- Cuadrado con monto seleccionado -->
+          <div class="items-center justify-center relative">
+            <div class="inline-flex w-1/4 h-10 ml-8 bg-gray-300 rounded flex items-center justify-center text-black font-bold text-md shadow-xl"
+              id="valueSquare">
+              <div class="pl-2 pr-2">2.000.000</div> <!-- Nuevo valor -->
+            </div>
+            <div class="pt-4">
+              <input type="range" name="loan-amount" id="loan-amount" min="0" max="2000000" step="1"
+                class="w-1/2 appearance-none bg-secondary-libra-violet h-1 rounded-full" value="2000000">
+            </div>
+          </div>
+          <!-- ENUNCIADO 3 -->
+          <div class="flex items-center mb-2 pt-4">
+            <div class="w-8 h-8 bg-primary-libra-violet text-white flex items-center justify-center rounded-full mr-4 shadow-xl">
+              3
+            </div>
+            <div>
+              <p class="text-2xl font-bold">En cuántas cuotas querés pagarlo?</p>
+            </div>
+          </div>
+          <!-- Opciones de cuotas -->
+          <div class="inline-flex pt-4 w-full" role="group">
+            <button class="w-1/4 bg-transparent hover:bg-primary-libra-violet text-black font-semibold hover:text-white py-2 px-4 border border-secondary-libra-violet hover:border-transparent rounded">
+              12
+            </button>
+            <button class="w-1/4 bg-transparent hover:bg-primary-libra-violet text-black font-semibold hover:text-white py-2 px-4 border border-secondary-libra-violet hover:border-transparent rounded">
+              21
+            </button>
+            <button class="w-1/4 bg-transparent hover:bg-primary-libra-violet text-black font-semibold hover:text-white py-2 px-4 border border-secondary-libra-violet hover:border-transparent rounded">
+              36
+            </button>
+            <button class="w-1/4 bg-transparent hover:bg-primary-libra-violet text-black font-semibold hover:text-white py-2 px-4 border border-secondary-libra-violet hover:border-transparent rounded">
+              48
+            </button>
+          </div>
+          <div class="container p-4">
+            <p class="inline-block p-4">TNA: 127,00%</p>
+            <p class="inline-block p-4">TEA: 234,41%</p>
+            <p class="inline-block p-4">CFTEA: 353,76%</p>
+          </div>
+          <div class="container text-center">
+            <button type="button" data-te-ripple-init data-te-ripple-color="light"
+              class="w-1/4 inline-block rounded bg-primary-libra-violet px-6 pb-2 pt-2.5 text-xs font-medium uppercase leading-normal text-white shadow-[0_4px_9px_-4px_#3b71ca] transition duration-150 ease-in-out hover:bg-primary-libra-violet hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:bg-primary-600 focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] focus:outline-none focus:ring-0 active:bg-primary-700 active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.3),0_4px_18px_0_rgba(59,113,202,0.2)] dark:shadow-[0_4px_9px_-4px_rgba(59,113,202,0.5)] dark:hover:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:focus:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)] dark:active:shadow-[0_8px_9px_-4px_rgba(59,113,202,0.2),0_4px_18px_0_rgba(59,113,202,0.1)]">
+              CALCULAR
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="bg-white p-8 grid md:auto-cols-auto">
+        <div><img src="./img/Happy-People.svg" alt="happy_people"></div>
+      </div>
+    </section>
   </main>
   <footer>
 
