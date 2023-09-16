@@ -135,3 +135,7 @@ if (operacion === "deposito") {
 } else {
   alert("Operación no válida");
 }
+
+
+// *********** INVERSIONES ***********
+

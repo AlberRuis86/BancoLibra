@@ -1,0 +1,60 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="shortcut icon" href="./src/img/favicon.ico" type="image/x-icon">
+  <link href="./dist/output.css" rel="stylesheet">
+  <title>Banco Libra</title>
+</head>
+
+<body>
+  <header class="bg-zinc-800">
+    <nav class="bg-gray-200 p-4 flex items-center justify-between">
+      <div class="flex items-center">
+        <img src="./src/img/logo.svg" alt="logo">
+      </div>
+      <div class="hidden md:flex space-x-4">
+        <a href="./index.html" class="text-secondary-libra-violet hover:text-blue-300 font-semibold">Inicio</a>
+        <a href="#" class="text-secondary-libra-violet hover:text-blue-300 font-semibold">Inversiones</a>
+        <a href="#" class="text-secondary-libra-violet hover:text-blue-300 font-semibold">Préstamos</a>
+        <a href="#" class="text-secondary-libra-violet hover:text-blue-300 font-semibold">Contacto</a>
+      </div>
+    </nav>
+  </header>
+  <main class="container-fluid h-screen bg-gray-300">
+    <h1 class="text-4xl font-bold text-center">Inversiones</h1>
+
+    <div class="block text-center mt-4">
+
+      <p class="text-3xl font-semibold text-center">Elige tu Plazo Fijo</p>
+      <button id="elegirTipoBtn" type="button"
+        class="mt-4 bg-white inline-block rounded-full border-2 border-primary-libra-violet px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-primary-600 hover:bg-secondary-libra-violet hover:bg-opacity-10 hover:text-primary-600 focus:border-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+        data-te-ripple-init>
+        Elegir Tipo de Plazo Fijo
+      </button>
+
+    </div>
+    <div class="block text-center mt-4">
+
+      <p class="text-3xl font-semibold text-center">Mis Inversiones</p>
+      <button id="listarTodasBtn" type="button"
+        class="mt-4 bg-white inline-block rounded-full border-2 border-primary-libra-violet px-6 pb-[6px] pt-2 text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-primary-600 hover:bg-secondary-libra-violet hover:bg-opacity-10 hover:text-primary-600 focus:border-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10"
+        data-te-ripple-init>
+        Listar Todas mis Inversiones
+      </button>
+
+    </div>
+
+  </main>
+  <footer class="bg-gray-200 text-secondary-libra-violet">
+    <div>
+      <p class="text-xl font-semibold text-center">Copyright 2023</p>
+    </div>
+  </footer>
+
+  <script src="./src/inversiones.js"></script>
+</body>
+
+</html>
