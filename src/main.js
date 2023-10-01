@@ -1,141 +1,95 @@
+// **********************MODAL*************************************
 
-// *************************PRESTAMOS******************************************
+// Obtén el elemento que se hace clic para abrir el modal
+const abrirModalRegistro = document.getElementById("abrirModalRegistro");
 
-// Obtener si el usuario es cliente del banco
-const clienteRespuesta = prompt("¿Es usted cliente del banco? (Si/No)");
-const esCliente = clienteRespuesta.toLowerCase() === 'si';
+// Obtén el modal de registro
+const modalRegistro = document.getElementById("modalRegistro");
 
-// Obtener el monto del préstamo
-let montoPrestamo = parseInt(prompt("Ingrese el monto del préstamo:"));
+// Agrega un evento de clic al elemento para abrir el modal
+abrirModalRegistro.addEventListener("click", function () {
+    modalRegistro.classList.remove("hidden"); // Muestra el modal
+});
 
-// Verificar si el monto es válido
-while (isNaN(montoPrestamo) || montoPrestamo <= 0) {
-    montoPrestamo = parseInt(prompt("Monto inválido. Ingrese el monto del préstamo:"));
-}
+// *************************** CERRAR MODAL *****************************
 
-// Obtener la cantidad de cuotas
-const cuotasRespuesta = parseInt(prompt("Seleccione la cantidad de cuotas:\n\n1. 12 meses\n2. 24 meses\n3. 36 meses\n4. 48 meses"));
+// Obtén el elemento del botón "Registrarse" dentro del modal
+const registrarUsuarioBtn = document.getElementById("registrarUsuario");
 
-let cuotas;
+// Agrega un evento de clic al botón "Registrarse"
+registrarUsuarioBtn.addEventListener("click", function () {
+    // Realiza las acciones necesarias para el registro aquí
 
-switch (cuotasRespuesta) {
-    case 1:
-        cuotas = 12;
-        break;
-    case 2:
-        cuotas = 24;
-        break;
-    case 3:
-        cuotas = 36;
-        break;
-    case 4:
-        cuotas = 48;
-        break;
-    default:
-        cuotas = 0; // Valor inválido
-        break;
-}
+    // Oculta el modal después de completar el registro
+    modalRegistro.classList.add("hidden");
+});
 
-if (cuotas === 0) {
-    alert("Cantidad de cuotas inválida.");
-} else {
-    // Interés según si es cliente o no
-    let interes = 0.1; // Tasa de interés No Cliente
-    if (esCliente) {
-        interes = 0.08; // Tasa de interés para Clientes
-    }
+// ************* CAPTURA LOS DATOS EN EL REGISTRO ******************
 
-    // Calculo para el monto total a pagar
-    const tasaMensual = interes / 12;
-    const cuotaMensual = (montoPrestamo * tasaMensual) / (1 - Math.pow(1 + tasaMensual, -cuotas));
-    const totalAPagar = cuotaMensual * cuotas;
+registrarUsuarioBtn.addEventListener("click", function() {
+  // Obtén los valores del formulario
+  const nombre = document.getElementById("nombre").value;
+  const apellido = document.getElementById("apellido").value;
+  const email = document.getElementById("emailRegistro").value;
+  const contraseña = document.getElementById("passwordRegistro").value;
 
-    // Mostrar el resultado
-    alert(`Detalles del préstamo:
-    Cliente del banco: ${esCliente ? 'Sí' : 'No'}
-    Monto del préstamo: $${montoPrestamo}
-    Cuotas: ${cuotas} meses
-    Cuota mensual: $${cuotaMensual}
-    Total a pagar: $${totalAPagar}`);
-}
+  console.log("Nombre:", nombre);
+  console.log("Apellido:", apellido);
+  console.log("Email:", email);
+  console.log("Contraseña:", contraseña);
 
-// ************************INVERSIONES************************************
+  // Guarda los datos en el localStorage
+  localStorage.setItem("nombre", nombre);
+  localStorage.setItem("apellido", apellido);
+  localStorage.setItem("email", email);
+  localStorage.setItem("contraseña", contraseña);
 
-// Ciclo do while
-let intentos = 0;
-do {
-  const contraseña = prompt("Ingrese la contraseña:");
-  if (contraseña === "secreto") {
-    alert("Contraseña correcta. Acceso permitido.");
-    break;
+  // Cierra el modal (puedes ocultarlo como lo hacías antes)
+  modalRegistro.classList.add("hidden");
+});
+
+// *****************************************************************
+
+// Obtén el botón "Iniciar Sesión" y agrega un evento de clic
+const iniciarSesionBtn = document.getElementById("iniciarSesion");
+
+// Event listener para el botón de inicio de sesión
+document.getElementById("iniciarSesion").addEventListener("click", function() {
+  console.log("Evento de inicio de sesión activado"); // Agrega este console.log
+  // Obtén los valores del formulario de inicio de sesión
+  const email = document.getElementById("email").value;
+  const contraseña = document.getElementById("password").value;
+
+  // Obtén los datos almacenados en el localStorage
+  const almacenadoEmail = localStorage.getItem("email");
+  const almacenadaContraseña = localStorage.getItem("contraseña");
+
+  // Compara las credenciales
+  if (email === almacenadoEmail && contraseña === almacenadaContraseña) {
+      // Credenciales correctas, redirige al usuario o realiza acciones necesarias
+      alert("Inicio de sesión exitoso");
   } else {
-    intentos++;
-    alert(`Contraseña incorrecta. Intentos restantes: ${3 - intentos}`);
+      alert("Credenciales incorrectas");
   }
-} while (intentos < 3);
+});
 
-// Ciclo for
-for (let i = 0; i < 5; i++) {
-  console.log(`Iteración ${i}`);
-}
-  
-  // Ciclo while
-let contador = 0;
-while (contador < 3) {
-  console.log(`Contador: ${contador}`);
-  contador++;
-}
+// ********************* Reedirección a la pagina inversiones ***************************
 
-// Variables usando let
-let nombreCliente = prompt("Ingrese su nombre:");
-let saldoInicial = parseFloat(prompt("Ingrese su saldo inicial:"));
-let cuentaActiva = true;
+// Event listener para el botón de inicio de sesión
+document.getElementById("iniciarSesion").addEventListener("click", function() {
+  // Obtén los valores del formulario de inicio de sesión
+  const email = document.getElementById("email").value;
+  const contraseña = document.getElementById("password").value;
 
-// Función para mostrar información de la cuenta
-function mostrarInformacionCuenta(nombre, saldo, activa) {
-    console.log(`Cliente: ${nombre}`);
-    console.log(`Saldo: $${saldo}`);
-    console.log(`Cuenta activa: ${activa ? 'Sí' : 'No'}`);
-}
+  // Obtén los datos almacenados en el localStorage
+  const almacenadoEmail = localStorage.getItem("email");
+  const almacenadaContraseña = localStorage.getItem("contraseña");
 
-// Mostrar información de la cuenta
-mostrarInformacionCuenta(nombreCliente, saldoInicial, cuentaActiva);
-
-// Función para depositar dinero en una cuenta
-function depositar(cuenta, monto) {
-  cuenta.saldo += monto;
-  return `Se depositaron $${monto} en la cuenta ${cuenta.numero}. Saldo actual: $${cuenta.saldo}`;
-}
-
-// Función para retirar dinero de una cuenta
-function retirar(cuenta, monto) {
-  if (monto <= cuenta.saldo) {
-    cuenta.saldo -= monto;
-    return `Se retiraron $${monto} de la cuenta ${cuenta.numero}. Saldo actual: $${cuenta.saldo}`;
+  // Compara las credenciales
+  if (email === almacenadoEmail && contraseña === almacenadaContraseña) {
+    // Credenciales correctas, redirige al usuario a inversiones.html
+    window.location.href = "inversiones.html";
   } else {
-    return `Fondos insuficientes en la cuenta ${cuenta.numero}. Saldo actual: $${cuenta.saldo}`;
+    alert("Credenciales incorrectas");
   }
-}
-
-// Crear una cuenta de ejemplo
-const cuentaEjemplo = {
-  numero: "123456",
-  saldo: saldoInicial,
-};
-
-// Uso de prompt para interactuar con el usuario
-const operacion = prompt("Ingrese 'deposito' o 'retiro':");
-
-if (operacion === "deposito") {
-  const monto = parseFloat(prompt("Ingrese el monto a depositar:"));
-  alert(depositar(cuentaEjemplo, monto));
-} else if (operacion === "retiro") {
-  const monto = parseFloat(prompt("Ingrese el monto a retirar:"));
-  alert(retirar(cuentaEjemplo, monto));
-} else {
-  alert("Operación no válida");
-}
-
-
-// *********** INVERSIONES ***********
-
+});
