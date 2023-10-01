@@ -10,3 +10,8 @@ Se utilizaron variables, funciones, objetos, arrays y metodos avanzados.
 Para el ingreso de los datos se utilizo prompt, y para la salida de los mismos alert.
 En esta pagina se puede crear dos tipos de plazos fijos, cada uno con diferentes intereses ganados.
 Tambien se puede visualizar los plazos fijos adquiidos y sus respectivos montos.
+*Pre-Entrega3*
+Se implemento la utilizacion del DOM y el local storage. 
+Mostrando los datos guardados del local storage en ventanas emergentes.
+En index.html se implemento el sign in y el login, el usuario puede registrarse a traves del enlace REGISTER(no utilizar datos sensibles), luego una vez registrado se puede hacer el Login.
+En la pagina inversiones.html se implemento el uso de ventanas emergentes para "ELEGIR TIPO DE INVERSION", donde al ingresar los datos y al oprimir el boton "calcular inversion" los mismos se gusrdan en el local storage para luego mostrarse cuando se oprime el boton de "LISTAR TODAS MIS INVERSIONES".
