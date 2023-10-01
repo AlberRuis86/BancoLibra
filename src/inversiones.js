@@ -159,17 +159,14 @@ document
 document.getElementById("listarTodasBtn").addEventListener("click", function () {
   const listaInversiones = document.getElementById("listaInversiones");
   const cerrarBtn = document.getElementById("cerrarBtn");
-  listaInversiones.classList.remove("hidden"); // Mostrar la lista
-  cerrarBtn.classList.remove("hidden"); // Mostrar el botón de cerrar
-  listarTodasLasInversiones(); // Llama a la función para listar las inversiones
+  listaInversiones.classList.remove("hidden");
 });
 
 // Evento al hacer clic en el botón "Cerrar"
 document.getElementById("cerrarBtn").addEventListener("click", function () {
   const listaInversiones = document.getElementById("listaInversiones");
   const cerrarBtn = document.getElementById("cerrarBtn");
-  listaInversiones.classList.add("hidden"); // Ocultar la lista
-  cerrarBtn.classList.add("hidden"); // Ocultar el botón de cerrar
+  listaInversiones.classList.add("hidden");
 });
 
 
