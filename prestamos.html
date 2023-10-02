@@ -1,5 +1,6 @@
 <!doctype html>
 <html>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,20 +8,22 @@
   <link href="./dist/output.css" rel="stylesheet">
   <title>Banco Libra</title>
 </head>
+
 <body>
-    <header class="bg-zinc-800">
-        <nav class="bg-gray-200 p-4 flex items-center justify-between">
-            <div class="flex items-center">
-              <img src="./src/img/logo.svg" alt="logo">
-            </div>
-            <div class="hidden md:flex space-x-4">
-              <a href="./index.html" class="text-secondary-libra-violet hover:text-blue-300 font-semibold">Inicio</a>
-              <a href="./inversiones.html" class="text-secondary-libra-violet hover:text-blue-300 font-semibold">Inversiones</a>
-              <a href="./prestamos.html" class="text-secondary-libra-violet hover:text-blue-300 font-semibold">Préstamos</a>
-              <a href="#" class="text-secondary-libra-violet hover:text-blue-300 font-semibold">Contacto</a>
-            </div>
-          </nav>
-    </header>
+  <header class="bg-zinc-800">
+    <nav class="bg-gray-200 p-4 flex items-center justify-between">
+      <div class="flex items-center">
+        <img src="./src/img/logo.svg" alt="logo">
+      </div>
+      <div class="hidden md:flex space-x-4">
+        <a href="./index.html" class="text-secondary-libra-violet hover:text-blue-300 font-semibold">Inicio</a>
+        <a href="./inversiones.html"
+          class="text-secondary-libra-violet hover:text-blue-300 font-semibold">Inversiones</a>
+        <a href="./prestamos.html" class="text-secondary-libra-violet hover:text-blue-300 font-semibold">Préstamos</a>
+        <a href="./contacto.html" class="text-secondary-libra-violet hover:text-blue-300 font-semibold">Contacto</a>
+      </div>
+    </nav>
+  </header>
   <main>
     <section class="grid grid-cols-2">
       <div class="bg-white text-center p-8 grid md:auto-cols-auto">
@@ -37,18 +40,23 @@
             </div>
             <div class="flex text-center items-center justify-center pt-4">
               <p class="mr-2 font-semibold">NO</p>
-              <div class="relative inline-block w-10 align-middle select-none transition duration-200 ease-in">
-                <input type="checkbox" name="toggle" id="toggle"
-                  class="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer">
-                <label for="toggle"
-                  class="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"></label>
-              </div>
+              <label for="toggleTwo" class="flex cursor-pointer select-none items-center">
+                <div class="relative">
+                  <input type="checkbox" id="toggleTwo" class="sr-only" />
+                  <div class="block h-8 w-14 rounded-full bg-[#E5E7EB]"></div>
+                  <div
+                    class="dot absolute left-1 top-1 h-6 w-6 rounded-full bg-white transition"
+                    id="dotTwo"
+                  ></div>
+                </div>
+              </label>                                         
               <p class="ml-2 font-semibold">SI</p>
-            </div>
+            </div>            
           </div>
           <!-- ENUNCIADO 2 -->
           <div class="flex items-center mb-2 pt-4">
-            <div class="w-8 h-8 bg-primary-libra-violet text-white flex items-center justify-center rounded-full mr-4 shadow-xl">
+            <div
+              class="w-8 h-8 bg-primary-libra-violet text-white flex items-center justify-center rounded-full mr-4 shadow-xl">
               2
             </div>
             <div>
@@ -59,7 +67,8 @@
           </div>
           <!-- Cuadrado con monto seleccionado -->
           <div class="items-center justify-center relative">
-            <div class="inline-flex w-1/4 h-10 ml-8 bg-gray-300 rounded flex items-center justify-center text-black font-bold text-md shadow-xl"
+            <div
+              class="inline-flex w-1/4 h-10 ml-8 bg-gray-300 rounded flex items-center justify-center text-black font-bold text-md shadow-xl"
               id="valueSquare">
               <div class="pl-2 pr-2">2.000.000</div> <!-- Nuevo valor -->
             </div>
@@ -70,7 +79,8 @@
           </div>
           <!-- ENUNCIADO 3 -->
           <div class="flex items-center mb-2 pt-4">
-            <div class="w-8 h-8 bg-primary-libra-violet text-white flex items-center justify-center rounded-full mr-4 shadow-xl">
+            <div
+              class="w-8 h-8 bg-primary-libra-violet text-white flex items-center justify-center rounded-full mr-4 shadow-xl">
               3
             </div>
             <div>
@@ -79,16 +89,20 @@
           </div>
           <!-- Opciones de cuotas -->
           <div class="inline-flex pt-4 w-full" role="group">
-            <button class="w-1/4 bg-transparent hover:bg-primary-libra-violet text-black font-semibold hover:text-white py-2 px-4 border border-secondary-libra-violet hover:border-transparent rounded">
+            <button
+              class="w-1/4 bg-transparent hover:bg-primary-libra-violet text-black font-semibold hover:text-white py-2 px-4 border border-secondary-libra-violet hover:border-transparent rounded">
               12
             </button>
-            <button class="w-1/4 bg-transparent hover:bg-primary-libra-violet text-black font-semibold hover:text-white py-2 px-4 border border-secondary-libra-violet hover:border-transparent rounded">
+            <button
+              class="w-1/4 bg-transparent hover:bg-primary-libra-violet text-black font-semibold hover:text-white py-2 px-4 border border-secondary-libra-violet hover:border-transparent rounded">
               21
             </button>
-            <button class="w-1/4 bg-transparent hover:bg-primary-libra-violet text-black font-semibold hover:text-white py-2 px-4 border border-secondary-libra-violet hover:border-transparent rounded">
+            <button
+              class="w-1/4 bg-transparent hover:bg-primary-libra-violet text-black font-semibold hover:text-white py-2 px-4 border border-secondary-libra-violet hover:border-transparent rounded">
               36
             </button>
-            <button class="w-1/4 bg-transparent hover:bg-primary-libra-violet text-black font-semibold hover:text-white py-2 px-4 border border-secondary-libra-violet hover:border-transparent rounded">
+            <button
+              class="w-1/4 bg-transparent hover:bg-primary-libra-violet text-black font-semibold hover:text-white py-2 px-4 border border-secondary-libra-violet hover:border-transparent rounded">
               48
             </button>
           </div>
@@ -115,6 +129,7 @@
       <p class="text-xl font-semibold text-center">Copyright 2023</p>
     </div>
   </footer>
-  <!-- <script src="./src/main.js"></script> -->
+  <script src="./src/prestamos.js"></script>
 </body>
+
 </html>

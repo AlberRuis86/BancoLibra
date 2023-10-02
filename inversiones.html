@@ -22,7 +22,7 @@
         <a href="./index.html" class="text-secondary-libra-violet hover:text-blue-300 font-semibold">Inicio</a>
         <a href="./inversiones.html" class="text-secondary-libra-violet hover:text-blue-300 font-semibold">Inversiones</a>
         <a href="./prestamos.html" class="text-secondary-libra-violet hover:text-blue-300 font-semibold">Préstamos</a>
-        <a href="#" class="text-secondary-libra-violet hover:text-blue-300 font-semibold">Contacto</a>
+        <a href="./contacto.html" class="text-secondary-libra-violet hover:text-blue-300 font-semibold">Contacto</a>
       </div>
     </nav>
   </header>
@@ -77,18 +77,22 @@
     </div>
 
     <!-- ************************ LISTA DE PLAZOS FIJOS ************************** -->
-    <div id="listaInversiones" class="p-4 space-y-4 bg-primary-libra-violet rounded-lg text-center hidden">
-      <button id="cerrarBtn" class="bg-secondary-libra-violet hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+    <div id="listaInversiones" class="h-screen p-2 m-4 space-y-4 bg-primary-libra-violet rounded-lg text-center hidden">
+      <div id="listaInversionesContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <!-- Contenido de la lista de inversiones se agregará aquí -->
+      </div>
+      
+      
+      <button id="cerrarBtn" class="bg-secondary-libra-violet hover:bg-blue-700 text-white font-bold p-2 rounded mx-auto m-2">
         Cerrar
-      </button>      
+      </button>         
     </div>
-
 
   </main>
   
   <!-- ************************************ FOOTER *************************************** -->
 
-  <footer class="bg-gray-200 text-secondary-libra-violet">
+  <footer class="bg-gray-200 text-secondary-libra-violet p-2 mt-4 fixed bottom-0 w-full">
     <div>
       <p class="text-xl font-semibold text-center">Copyright 2023</p>
     </div>
