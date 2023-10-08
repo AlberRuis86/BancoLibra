@@ -1,234 +1,332 @@
-// Calcular la ganancia de interés
-function calcularGananciaInteres(monto, tasaMensual, duracion) {
-  const montoTotal = monto * Math.pow(1 + tasaMensual, duracion);
-  return montoTotal - monto;
-}
+document.addEventListener("DOMContentLoaded", function () {
+  let todasLasInversiones = [];
+  // *****************************************************************
+  // ************************* FUNCIONES *****************************
+  // *****************************************************************
 
-// Mostrar detalles de la inversión
-function mostrarDetallesInversion(opcion) {
-  let tasaInteres = "";
+  // CALCULAR GANANCIA
+  function calcularGananciaInteres(monto, tasaMensual, duracion) {
+    const montoTotal = monto * Math.pow(1 + tasaMensual, duracion);
+    return montoTotal - monto;
+  }
+  // MOSTRAR DETALLES
+  function mostrarDetallesInversion(opcion) {
+    const resultadoInversion = document.getElementById("resultadoInversion");
+    const tipoInversionResultado = document.getElementById(
+      "tipoInversionResultado"
+    );
+    const montoInversionResultado = document.getElementById(
+      "montoInversionResultado"
+    );
+    const duracionMesesResultado = document.getElementById(
+      "duracionMesesResultado"
+    );
+    const tasaInteresResultado = document.getElementById(
+      "tasaInteresResultado"
+    );
+    const gananciaInteresResultado = document.getElementById(
+      "gananciaInteresResultado"
+    );
+    const montoTotalResultado = document.getElementById("montoTotalResultado");
 
-  if (
-    opcion.tipo === "Plazo Fijo Tradicional" ||
-    opcion.tipo === "Plazo Fijo Renta Mensual"
-  ) {
-    tasaInteres = opcion.tasaInteres + "";
+    tipoInversionResultado.textContent = `Tipo de inversión: ${opcion.tipo}`;
+    montoInversionResultado.textContent = `Monto de inversión: $${opcion.montoInversion}`;
+    duracionMesesResultado.textContent = `Duración en meses: ${opcion.duracionMeses} meses`;
+    tasaInteresResultado.textContent = `Tasa de interés: ${opcion.tasaInteres}`;
+    gananciaInteresResultado.textContent = `Ganancia de interés: $${opcion.gananciaInteres}`;
+    montoTotalResultado.textContent = `Monto total: $${opcion.montoTotal}`;
+
+    resultadoInversion.classList.remove("hidden");
   }
 
-  alert(`Detalles de la inversión:
-      Tipo de inversión: ${opcion.tipo}
-      Monto de inversión: $${opcion.montoInversion}
-      Duración en meses: ${opcion.duracionMeses} meses
-      Tasa de interés: ${tasaInteres}
-      Ganancia de interés: $${opcion.gananciaInteres}
-      Monto total: $${opcion.montoTotal}`);
+  //************************** LISTAR TODAS LAS INVERSIONES **********************************
 
-  // En lugar de cerrar la ventana, simplemente oculta la ventana emergente
-  const listaInversiones = document.getElementById("listaInversiones");
-  listaInversiones.classList.add("hidden");
-}
-
-// Listar todas mis inversiones (con manejo de errores)
-try {
-  const inversionesGuardadas = JSON.parse(localStorage.getItem("inversiones")) || [];
-  const listaInversionesContainer = document.getElementById("listaInversionesContainer");
-  
-  // Botón de cerrar
-  let cerrarBtn = document.getElementById("cerrarBtn");
-
-  // Verifica si hay inversiones para mostrar
-  if (inversionesGuardadas.length > 0) {
+  // FUNCION PARA LISTAR
+  function listarTodasLasInversiones() {
+    const listaInversionesContainer = document.getElementById(
+      "listaInversionesContainer"
+    );
     listaInversionesContainer.innerHTML = "";
-    inversionesGuardadas.forEach((opcion) => {
-      let tasaInteres = "";
-      if (opcion.tipo === "Plazo Fijo Tradicional" || opcion.tipo === "Plazo Fijo Renta Mensual") {
-        tasaInteres = opcion.tasaInteres + "";
-      }
+    const inversionesGuardadas = obtenerTodasLasInversiones();
 
-      // Elementos HTML para mostrar la información
-      const inversionElement = document.createElement("div");
-      inversionElement.classList.add("bg-white", "p-2", "rounded", "shadow-md");
+    if (inversionesGuardadas.length > 0) {
+      inversionesGuardadas.forEach((opcion) => {
+        let tasaInteres = "";
 
-      inversionElement.innerHTML = `
-        <p>Tipo de inversión: ${opcion.tipo}</p>
-        <p>Monto de inversión: $${opcion.montoInversion}</p>
-        <p>Duración en meses: ${opcion.duracionMeses} meses</p>
-        <p>Tasa de interés: ${tasaInteres}</p>
-        <p>Ganancia de interés: $${opcion.gananciaInteres}</p>
-        <p>Monto total: $${opcion.montoTotal}</p>
+        if (
+          opcion.tipo === "Plazo Fijo Tradicional" ||
+          opcion.tipo === "Plazo Fijo Renta Mensual"
+        ) {
+          tasaInteres = opcion.tasaInteres;
+        }
+        // CREAR CARD PARA MOSTRAR DATOS
+        const card = document.createElement("div");
+        card.classList.add("card", "mb-3");
+
+        card.innerHTML = `
+        <div class="card-body bg-white">
+          <h5 class="card-title tipoDeInversion">${opcion.tipo}</h5>
+          <p class="card-text montoDeInversion">${opcion.montoInversion}</p>
+          <p class="card-text duracionEnMeses">${opcion.duracionMeses}</p>
+          <p class="card-text">${opcion.tasaInteres}</p>
+          <p class="card-text">${opcion.gananciaInteres}</p>
+          <p class="card-text">${opcion.montoTotal}</p>
+        </div>
       `;
 
-      listaInversionesContainer.appendChild(inversionElement);
-    });
-
-    // Verifico de que el botón de cerrar exista y sea visible
-    if (!cerrarBtn) {
-      cerrarBtn = document.createElement("button");
-      cerrarBtn.id = "cerrarBtn";
-      cerrarBtn.textContent = "Cerrar";
-      cerrarBtn.classList.add("bg-gray-300");
-      cerrarBtn.addEventListener("click", function () {
-        listaInversionesContainer.classList.add("hidden");
+        listaInversionesContainer.appendChild(card);
       });
-
-      listaInversionesContainer.appendChild(cerrarBtn);
+      // MOSTRAR LA LISTA
+      listaInversionesContainer.classList.remove("hidden");
+      // MOSTRAR LA VENTANA EMERGENTE "listaInversiones"
+      const listaInversiones = document.getElementById("listaInversiones");
+      listaInversiones.classList.remove("hidden");
     } else {
-      cerrarBtn.style.display = "block";
+      // SI NO HAY INVERSIONES SE MUESTRA ESTO
+      listaInversionesContainer.innerHTML = `<p>No hay inversiones para mostrar.</p>`;
     }
 
-    listaInversionesContainer.classList.remove("hidden");
-  } else {
-    // No hay inversiones para mostrar, oculta el contenedor y el botón de cerrar
-    listaInversionesContainer.innerHTML = "";
-    listaInversionesContainer.classList.add("hidden");
-    if (cerrarBtn) {
-      cerrarBtn.style.display = "none";
-    }
-  }
-} catch (error) {
-  console.error("Error al analizar los datos del localStorage:", error);
-}
+    // BOTON DE CERRAR
+    const cerrarBtn = document.getElementById("cerrarBtn");
 
-// Clic en el botón "Elegir Tipo de Plazo Fijo"
-document.getElementById("elegirTipoBtn").addEventListener("click", function () {
-  const formularioInversion = document.getElementById("formularioInversion");
-  formularioInversion.classList.remove("hidden");
-});
-
-// Listar todas las inversiones y mostrar el botón de cerrar original
-function listarTodasLasInversiones() {
-  const listaInversionesContainer = document.getElementById("listaInversionesContainer");
-  listaInversionesContainer.innerHTML = ""; // Limpia cualquier contenido previo
-
-  const inversionesGuardadas =
-    JSON.parse(localStorage.getItem("inversiones")) || [];
-
-  inversionesGuardadas.forEach((opcion) => {
-    let tasaInteres = "";
-
-    if (opcion.tipo === "Plazo Fijo Tradicional" || opcion.tipo === "Plazo Fijo Renta Mensual") {
-      tasaInteres = opcion.tasaInteres + "";
-    }
-
-    // Crear elementos HTML para mostrar la información en forma de tarjeta
-    const card = document.createElement("div");
-    card.classList.add("card", "mb-3");
-
-    card.innerHTML = `
-      <div class="card-body bg-white">
-        <h5 class="card-title">Tipo de inversión: ${opcion.tipo}</h5>
-        <p class="card-text">Monto de inversión: $${opcion.montoInversion}</p>
-        <p class="card-text">Duración en meses: ${opcion.duracionMeses} meses</p>
-        <p class="card-text">Tasa de interés: ${tasaInteres}</p>
-        <p class="card-text">Ganancia de interés: $${opcion.gananciaInteres}</p>
-        <p class="card-text">Monto total: $${opcion.montoTotal}</p>
-      </div>
-    `;
-
-    listaInversionesContainer.appendChild(card);
-  });
-
-  // No elimines el botón de cerrar original, simplemente muéstralo
-  const cerrarBtn = document.getElementById("cerrarBtn");
-  if (cerrarBtn) {
-    cerrarBtn.style.display = "block";
-  }
-
-  listaInversionesContainer.classList.remove("hidden"); // Mostrar la lista
-}
-
-// Clic en el botón "Calcular Inversión"
-document
-  .getElementById("calcularInversionBtn")
-  .addEventListener("click", function () {
-    const tipoInversion = document.getElementById("tipoInversion").value;
-    const montoInversion = parseFloat(
-      document.getElementById("montoInversion").value
-    );
-    const duracionMeses = parseInt(
-      document.getElementById("duracionMeses").value
-    );
-
-    // Calcular la inversión y mostrar detalles
-    const tasaInteresAnualTrad = 0.05;
-    const tasaInteresMensualTrad = tasaInteresAnualTrad / 12;
-
-    const tasaInteresMensualRenta = 0.03;
-    let gananciaInteres;
-    let montoTotal;
-    let tasaInteres;
-
-    if (tipoInversion === "Plazo Fijo Tradicional") {
-      gananciaInteres = calcularGananciaInteres(
-        montoInversion,
-        tasaInteresMensualTrad,
-        duracionMeses
-      );
-      montoTotal = montoInversion + gananciaInteres;
-      tasaInteres = (tasaInteresAnualTrad * 100).toFixed(2) + "% (anual)";
-    } else if (tipoInversion === "Plazo Fijo Renta Mensual") {
-      gananciaInteres = calcularGananciaInteres(
-        montoInversion,
-        tasaInteresMensualRenta,
-        duracionMeses
-      );
-      montoTotal = montoInversion + gananciaInteres;
-      tasaInteres = (tasaInteresMensualRenta * 100).toFixed(2) + "% (mensual)";
-    }
-
-    mostrarDetallesInversion({
-      tipo: tipoInversion,
-      montoInversion: montoInversion.toFixed(2),
-      duracionMeses,
-      tasaInteres,
-      gananciaInteres: gananciaInteres.toFixed(2),
-      montoTotal: montoTotal.toFixed(2),
+    // EVENTO BOTON CERRAR
+    cerrarBtn.addEventListener("click", function () {
+      const listaInversiones = document.getElementById("listaInversiones");
+      listaInversiones.classList.add("hidden");
     });
-
-    // Representar la inversión actual
-    const inversionActual = {
-      tipo: tipoInversion,
-      montoInversion: montoInversion.toFixed(2),
-      duracionMeses,
-      tasaInteres,
-      gananciaInteres: gananciaInteres.toFixed(2),
-      montoTotal: montoTotal.toFixed(2),
-    };
-
-    // Array de inversiones existente en localStorage
+  }
+  //************************** OBTENER LAS INVERSIONES *********************************
+  function obtenerTodasLasInversiones() {
     const inversionesGuardadas =
       JSON.parse(localStorage.getItem("inversiones")) || [];
+    return inversionesGuardadas;
+  }
+  // BUSCA Y MUESTRA RESULTADOS EN VENTANA EMERGENTE
+  function buscarInversiones() {
+    const searchTerm = document
+      .getElementById("searchInput")
+      .value.toLowerCase();
+    const inversionesGuardadas = obtenerTodasLasInversiones();
 
-    // Agrega la nueva inversión al array
-    inversionesGuardadas.push(inversionActual);
+    if (searchTerm === "") {
+      mostrarInversiones(inversionesGuardadas);
+      return;
+    }
 
-    // Guarda el array de inversiones actualizado en localStorage
-    localStorage.setItem("inversiones", JSON.stringify(inversionesGuardadas));
+    const resultados = inversionesGuardadas.filter((opcion) => {
+      const tipoInversion = opcion.tipo.toLowerCase();
+      const montoInversion = opcion.montoInversion.toString().toLowerCase();
+      const duracionMeses = opcion.duracionMeses.toString().toLowerCase();
+      const tasaInteres = opcion.tasaInteres.toString().toLowerCase();
+      const gananciaInteres = opcion.gananciaInteres.toString().toLowerCase();
+      const montoTotal = opcion.montoTotal.toString().toLowerCase();
 
-    // Limpia los campos del form
-    document.getElementById("tipoInversion").value = "Plazo Fijo Tradicional";
-    document.getElementById("montoInversion").value = "";
-    document.getElementById("duracionMeses").value = "";
+      return (
+        tipoInversion.includes(searchTerm) ||
+        montoInversion.includes(searchTerm) ||
+        duracionMeses.includes(searchTerm) ||
+        tasaInteres.includes(searchTerm) ||
+        gananciaInteres.includes(searchTerm) ||
+        montoTotal.includes(searchTerm)
+      );
+    });
+    mostrarInversiones(resultados);
+  }
+  //*********************** MOSTRAR LAS INVERSIONES ******************************
+  function mostrarInversiones(inversiones) {
+    const listaInversionesContainer = document.getElementById(
+      "listaInversionesContainer"
+    );
+    listaInversionesContainer.innerHTML = "";
 
-    // Oculta el form nuevamente
-    const formularioInversion = document.getElementById("formularioInversion");
-    formularioInversion.classList.add("hidden");
+    if (inversiones.length > 0) {
+      inversiones.forEach((opcion) => {
+        let tasaInteres = "";
 
-    // Llamar nuevamente a la función para listar inversiones después de agregar una nueva
-    listarTodasLasInversiones();
-  });
+        if (
+          opcion.tipo === "Plazo Fijo Tradicional" ||
+          opcion.tipo === "Plazo Fijo Renta Mensual"
+        ) {
+          tasaInteres = opcion.tasaInteres;
+        }
+        
+        const inversionElement = document.createElement("div");
+        inversionElement.classList.add(
+          "bg-white",
+          "p-2",
+          "rounded",
+          "shadow-md"
+        );
 
-document
-  .getElementById("listarTodasBtn")
-  .addEventListener("click", function () {
+        inversionElement.innerHTML = `
+        <p>${opcion.tipo}</p>
+        <p>${opcion.montoInversion}</p>
+        <p>${opcion.duracionMeses}</p>
+        <p>${opcion.tasaInteres}</p>
+        <p>${opcion.gananciaInteres}</p>
+        <p>${opcion.montoTotal}</p>
+      `;
+
+        listaInversionesContainer.appendChild(inversionElement);
+      });
+    } else {
+      // Muestra un mensaje si no se encuentran resultados
+      listaInversionesContainer.innerHTML = `<p>No se encontraron resultados.</p>`;
+    }
+    // Muestra la ventana emergente de búsqueda
     const listaInversiones = document.getElementById("listaInversiones");
-    const cerrarBtn = document.getElementById("cerrarBtn");
     listaInversiones.classList.remove("hidden");
-  });
+  }
+  // *****************************************************************
+  // ************************* EVENTOS *******************************
+  // *****************************************************************
 
-// Evento al hacer clic en el botón "Cerrar"
-document.getElementById("cerrarBtn").addEventListener("click", function () {
-  const listaInversiones = document.getElementById("listaInversiones");
+  //BOTON "ELEGIR TIPO DE PLAZO FIJO"
+  document
+    .getElementById("elegirTipoBtn")
+    .addEventListener("click", function () {
+      const formularioInversion = document.getElementById(
+        "formularioInversion"
+      );
+      formularioInversion.classList.remove("hidden");
+    });
+
+  // BOTON "CALCULAR INVERSION"
+  document
+    .getElementById("calcularInversionBtn")
+    .addEventListener("click", function () {
+      const tipoInversion = document.getElementById("tipoInversion").value;
+      const montoInversion = parseFloat(
+        document.getElementById("montoInversion").value
+      );
+      const duracionMeses = parseInt(
+        document.getElementById("duracionMeses").value
+      );
+
+      let gananciaInteres;
+      let montoTotal;
+      let tasaInteres;
+
+      const tasaInteresAnualTrad = 0.05;
+      const tasaInteresMensualTrad = tasaInteresAnualTrad / 12;
+      const tasaInteresMensualRenta = 0.03;
+
+      if (tipoInversion === "Plazo Fijo Tradicional") {
+        gananciaInteres = calcularGananciaInteres(
+          montoInversion,
+          tasaInteresMensualTrad,
+          duracionMeses
+        );
+        montoTotal = montoInversion + gananciaInteres;
+        tasaInteres = (tasaInteresAnualTrad * 100).toFixed(2) + "% (anual)";
+      } else if (tipoInversion === "Plazo Fijo Renta Mensual") {
+        gananciaInteres = calcularGananciaInteres(
+          montoInversion,
+          tasaInteresMensualRenta,
+          duracionMeses
+        );
+        montoTotal = montoInversion + gananciaInteres;
+        tasaInteres =
+          (tasaInteresMensualRenta * 100).toFixed(2) + "% (mensual)";
+      }
+
+      mostrarDetallesInversion({
+        tipo: tipoInversion,
+        montoInversion: montoInversion.toFixed(2),
+        duracionMeses,
+        tasaInteres,
+        gananciaInteres: gananciaInteres.toFixed(2),
+        montoTotal: montoTotal.toFixed(2),
+      });
+
+      // Detalles en la ventana emergente resultado
+      const resultadoInversion = document.getElementById("resultadoInversion");
+      resultadoInversion.classList.remove("hidden");
+
+      // Oculta la ventana de formulario
+      const formularioInversion = document.getElementById(
+        "formularioInversion"
+      );
+      formularioInversion.classList.add("hidden");
+    });
+  // Evento al hacer clic en el botón "Cancelar" en la ventana emergente de resultado
+  document.getElementById("cancelarBtn").addEventListener("click", function () {
+    const resultadoInversion = document.getElementById("resultadoInversion");
+    resultadoInversion.classList.add("hidden");
+  });
+  //******************************** CONTRATAR *********************************************
+  document
+    .getElementById("contratarBtn")
+    .addEventListener("click", function () {
+      const tipoInversion = document.getElementById(
+        "tipoInversionResultado"
+      ).textContent;
+      const montoInversion = document.getElementById(
+        "montoInversionResultado"
+      ).textContent;
+      const duracionMeses = document.getElementById(
+        "duracionMesesResultado"
+      ).textContent;
+      const tasaInteres = document.getElementById(
+        "tasaInteresResultado"
+      ).textContent;
+      const gananciaInteres = document.getElementById(
+        "gananciaInteresResultado"
+      ).textContent;
+      const montoTotal = document.getElementById(
+        "montoTotalResultado"
+      ).textContent;
+
+      const nuevaInversion = {
+        tipo: tipoInversion,
+        montoInversion: montoInversion,
+        duracionMeses: duracionMeses,
+        tasaInteres: tasaInteres,
+        gananciaInteres: gananciaInteres,
+        montoTotal: montoTotal,
+      };
+      // Obtener las inversiones actuales del localStorage
+      const inversionesGuardadas = obtenerTodasLasInversiones();
+      // Agregar la nueva inversión al arreglo
+      inversionesGuardadas.push(nuevaInversion);
+      // Guardar el arreglo de inversiones actualizado en el localStorage
+      localStorage.setItem("inversiones", JSON.stringify(inversionesGuardadas));
+      // Ocultar la ventana de contratación después de guardar la inversión
+      const ventanaContratar = document.getElementById("resultadoInversion");
+      ventanaContratar.classList.add("hidden");
+    });
+  //********************* EVENTO BUSQUEDA ******************************
+  // Click en el botón de búsqueda
+  document
+    .getElementById("searchButton")
+    .addEventListener("click", function () {
+      buscarInversiones();
+    });
+  // Evento ENTER en el campo de búsqueda
+  document
+    .getElementById("searchInput")
+    .addEventListener("keyup", function (event) {
+      if (event.key === "Enter") {
+        buscarInversiones();
+      }
+    });
+  // EVENTO BOTON "LISTAR TODAS MIS INVERSIONES"
+  document
+    .getElementById("listarTodasBtn")
+    .addEventListener("click", function () {
+      listarTodasLasInversiones();
+    });
+  // EVENTO BOTON CERRAR EN VENTANA EMERGENTE
   const cerrarBtn = document.getElementById("cerrarBtn");
-  listaInversiones.classList.add("hidden");
+  cerrarBtn.addEventListener("click", () => {
+    const listaInversiones = document.getElementById("listaInversiones");
+    listaInversiones.classList.add("hidden");
+  });
+  // *****************************************************************
+  // ************************* INICIALIZACION ************************
+  // *****************************************************************
+
+  // Ocultar las ventanas emergentes al inicio
+  const formularioInversion = document.getElementById("formularioInversion");
+  formularioInversion.classList.add("hidden");
 });

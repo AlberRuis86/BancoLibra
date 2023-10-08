@@ -1,90 +1,104 @@
-// **********************MODAL*************************************
+document.addEventListener("DOMContentLoaded", function () {
+  // **********************MODAL*************************************
+  const abrirModalRegistro = document.getElementById("abrirModalRegistro");
+  const modalRegistro = document.getElementById("modalRegistro");
+  abrirModalRegistro.addEventListener("click", function () {
+    modalRegistro.classList.remove("hidden");
+  });
+  // *************************** CERRAR MODAL *****************************
+  const registrarUsuarioBtn = document.getElementById("registrarUsuario");
+  registrarUsuarioBtn.addEventListener("click", function () {
+    modalRegistro.classList.add("hidden");
+  });
+  // ************* CAPTURA LOS DATOS EN EL REGISTRO ******************
+  registrarUsuarioBtn.addEventListener("click", function () {
+    const nombre = document.getElementById("nombre").value;
+    const apellido = document.getElementById("apellido").value;
+    const email = document.getElementById("emailRegistro").value;
+    const contraseña = document.getElementById("passwordRegistro").value;
 
-// Clic para abrir el modal
-const abrirModalRegistro = document.getElementById("abrirModalRegistro");
+    console.log("Nombre:", nombre);
+    console.log("Apellido:", apellido);
+    console.log("Email:", email);
+    console.log("Contraseña:", contraseña);
 
-// Modal de registro
-const modalRegistro = document.getElementById("modalRegistro");
-
-// Evento de clic al elemento para abrir el modal
-abrirModalRegistro.addEventListener("click", function () {
-    modalRegistro.classList.remove("hidden"); // Muestra el modal
-});
-
-// *************************** CERRAR MODAL *****************************
-
-// Elemento del botón "Registrarse" dentro del modal
-const registrarUsuarioBtn = document.getElementById("registrarUsuario");
-
-// Evento de clic al botón "Registrarse"
-registrarUsuarioBtn.addEventListener("click", function () {
+    localStorage.setItem("nombre", nombre);
+    localStorage.setItem("apellido", apellido);
+    localStorage.setItem("email", email);
+    localStorage.setItem("contraseña", contraseña);
 
     modalRegistro.classList.add("hidden");
-});
+  });
 
-// ************* CAPTURA LOS DATOS EN EL REGISTRO ******************
-
-registrarUsuarioBtn.addEventListener("click", function() {
-  const nombre = document.getElementById("nombre").value;
-  const apellido = document.getElementById("apellido").value;
-  const email = document.getElementById("emailRegistro").value;
-  const contraseña = document.getElementById("passwordRegistro").value;
-
-  console.log("Nombre:", nombre);
-  console.log("Apellido:", apellido);
-  console.log("Email:", email);
-  console.log("Contraseña:", contraseña);
-
-  // Guarda los datos en el localStorage
-  localStorage.setItem("nombre", nombre);
-  localStorage.setItem("apellido", apellido);
-  localStorage.setItem("email", email);
-  localStorage.setItem("contraseña", contraseña);
-
-  modalRegistro.classList.add("hidden");
-});
-
-// *****************************************************************
-
-// Iniciar sesión y evento de clic
-const iniciarSesionBtn = document.getElementById("iniciarSesion");
-
-document.getElementById("iniciarSesion").addEventListener("click", function() {
-  console.log("Evento de inicio de sesión activado"); // Agrega este console.log
-  // Valores del formulario de inicio de sesión
-  const email = document.getElementById("email").value;
-  const contraseña = document.getElementById("password").value;
-
-  // Datos almacenados en el localStorage
-  const almacenadoEmail = localStorage.getItem("email");
-  const almacenadaContraseña = localStorage.getItem("contraseña");
-
-  // Compara las credenciales
-  if (email === almacenadoEmail && contraseña === almacenadaContraseña) {
-      // Credenciales correctas, redirige al usuario o realiza acciones necesarias
-      alert("Inicio de sesión exitoso");
-  } else {
-      alert("Credenciales incorrectas");
+  // ******************** SWEET ALERT **********************************
+  function mostrarSweetAlert(title, text, icon, confirmButtonText, timer) {
+    Swal.fire({
+      title: title,
+      text: text,
+      icon: icon,
+      confirmButtonText: confirmButtonText,
+      timer: timer,
+      showConfirmButton: true,
+    });
   }
-});
+  // ******************** INICIAR SESION ********************************
+  const iniciarSesionBtn = document.getElementById("iniciarSesion");
 
-// ********************* Reedirección a la pagina inversiones ***************************
+  document
+    .getElementById("iniciarSesion")
+    .addEventListener("click", function () {
+      const email = document.getElementById("email").value;
+      const contraseña = document.getElementById("password").value;
+      const almacenadoEmail = localStorage.getItem("email");
+      const almacenadaContraseña = localStorage.getItem("contraseña");
 
-// Event listener para el botón de inicio de sesión
-document.getElementById("iniciarSesion").addEventListener("click", function() {
-  // Valores del formulario de inicio de sesión
-  const email = document.getElementById("email").value;
-  const contraseña = document.getElementById("password").value;
+      if (email === almacenadoEmail && contraseña === almacenadaContraseña) {
+        mostrarSweetAlert(
+          "Éxito",
+          "Inicio de sesión exitoso",
+          "success",
+          "Continuar",
+          2000
+        );
+        setTimeout(function () {
+          window.location.href = "inversiones.html";
+        }, 2000);
+      } else {
+        mostrarSweetAlert(
+          "Error",
+          "Credenciales incorrectas",
+          "error",
+          "Entendido",
+          2000
+        );
+      }
+    });
 
-  // Datos almacenados en el localStorage
-  const almacenadoEmail = localStorage.getItem("email");
-  const almacenadaContraseña = localStorage.getItem("contraseña");
+  // ********************* Reedirección a la pagina inversiones ***************************
+  document
+    .getElementById("iniciarSesion")
+    .addEventListener("click", function () {
+      const email = document.getElementById("email").value;
+      const contraseña = document.getElementById("password").value;
+      const almacenadoEmail = localStorage.getItem("email");
+      const almacenadaContraseña = localStorage.getItem("contraseña");
 
-  // Compara las credenciales
-  if (email === almacenadoEmail && contraseña === almacenadaContraseña) {
-    // Credenciales correctas, redirige al usuario a inversiones.html
-    window.location.href = "inversiones.html";
-  } else {
-    alert("Credenciales incorrectas");
-  }
+      if (email === almacenadoEmail && contraseña === almacenadaContraseña) {
+        mostrarSweetAlert(
+          "Éxito",
+          "Inicio de sesión exitoso",
+          "success",
+          "Continuar",
+          "2000"
+        );
+      } else {
+        mostrarSweetAlert(
+          "Error",
+          "Credenciales incorrectas",
+          "error",
+          "Entendido",
+          2000
+        );
+      }
+    });
 });
