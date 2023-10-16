@@ -12,21 +12,11 @@ document.addEventListener("DOMContentLoaded", function () {
   // MOSTRAR DETALLES
   function mostrarDetallesInversion(opcion) {
     const resultadoInversion = document.getElementById("resultadoInversion");
-    const tipoInversionResultado = document.getElementById(
-      "tipoInversionResultado"
-    );
-    const montoInversionResultado = document.getElementById(
-      "montoInversionResultado"
-    );
-    const duracionMesesResultado = document.getElementById(
-      "duracionMesesResultado"
-    );
-    const tasaInteresResultado = document.getElementById(
-      "tasaInteresResultado"
-    );
-    const gananciaInteresResultado = document.getElementById(
-      "gananciaInteresResultado"
-    );
+    const tipoInversionResultado = document.getElementById("tipoInversionResultado");
+    const montoInversionResultado = document.getElementById("montoInversionResultado");
+    const duracionMesesResultado = document.getElementById("duracionMesesResultado");
+    const tasaInteresResultado = document.getElementById("tasaInteresResultado");
+    const gananciaInteresResultado = document.getElementById("gananciaInteresResultado");
     const montoTotalResultado = document.getElementById("montoTotalResultado");
 
     tipoInversionResultado.textContent = `Tipo de inversión: ${opcion.tipo}`;
@@ -43,9 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // FUNCION PARA LISTAR
   function listarTodasLasInversiones() {
-    const listaInversionesContainer = document.getElementById(
-      "listaInversionesContainer"
-    );
+    const listaInversionesContainer = document.getElementById("listaInversionesContainer");
     listaInversionesContainer.innerHTML = "";
     const inversionesGuardadas = obtenerTodasLasInversiones();
 
@@ -61,7 +49,7 @@ document.addEventListener("DOMContentLoaded", function () {
         }
         // CREAR CARD PARA MOSTRAR DATOS
         const card = document.createElement("div");
-        card.classList.add("card", "mb-3");
+        card.classList.add("card", "m-auto");
 
         card.innerHTML = `
         <div class="card-body bg-white">
@@ -134,9 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
   }
   //*********************** MOSTRAR LAS INVERSIONES ******************************
   function mostrarInversiones(inversiones) {
-    const listaInversionesContainer = document.getElementById(
-      "listaInversionesContainer"
-    );
+    const listaInversionesContainer = document.getElementById("listaInversionesContainer");
     listaInversionesContainer.innerHTML = "";
 
     if (inversiones.length > 0) {
@@ -149,11 +135,12 @@ document.addEventListener("DOMContentLoaded", function () {
         ) {
           tasaInteres = opcion.tasaInteres;
         }
-        
+
         const inversionElement = document.createElement("div");
         inversionElement.classList.add(
           "bg-white",
           "p-2",
+          "m-2",
           "rounded",
           "shadow-md"
         );
@@ -244,12 +231,10 @@ document.addEventListener("DOMContentLoaded", function () {
       resultadoInversion.classList.remove("hidden");
 
       // Oculta la ventana de formulario
-      const formularioInversion = document.getElementById(
-        "formularioInversion"
-      );
+      const formularioInversion = document.getElementById("formularioInversion");
       formularioInversion.classList.add("hidden");
     });
-  // Evento al hacer clic en el botón "Cancelar" en la ventana emergente de resultado
+  // Evento al hacer click en el botón "Cancelar" en la ventana emergente de resultado
   document.getElementById("cancelarBtn").addEventListener("click", function () {
     const resultadoInversion = document.getElementById("resultadoInversion");
     resultadoInversion.classList.add("hidden");
@@ -319,7 +304,7 @@ document.addEventListener("DOMContentLoaded", function () {
   // EVENTO BOTON CERRAR EN VENTANA EMERGENTE
   const cerrarBtn = document.getElementById("cerrarBtn");
   cerrarBtn.addEventListener("click", () => {
-    const listaInversiones = document.getElementById("listaInversiones");
+   const listaInversiones = document.getElementById("listaInversiones");
     listaInversiones.classList.add("hidden");
   });
   // *****************************************************************
@@ -329,4 +314,61 @@ document.addEventListener("DOMContentLoaded", function () {
   // Ocultar las ventanas emergentes al inicio
   const formularioInversion = document.getElementById("formularioInversion");
   formularioInversion.classList.add("hidden");
+
+  // *****************************************************************
+  // ************************* API ************************
+  // *****************************************************************
+
+  // URL de la API de cotización del dólar
+  const apiUrl = "https://dolarapi.com/v1/dolares";
+
+  // Contenedor donde se mostrarán las tarjetas
+  const tarjetasContainer = document.getElementById("tarjetasContainer");
+
+  // Función para obtener los datos de la API
+  async function obtenerDatosApi() {
+    try {
+      const response = await fetch(apiUrl);
+
+      if (!response.ok) {
+        throw new Error("La solicitud no fue exitosa");
+      }
+
+      const data = await response.json();
+
+      for (const key in data) {
+        if (data.hasOwnProperty(key)) {
+          const cotizacion = data[key];
+
+          const tarjeta = document.createElement("div");
+          tarjeta.classList.add(
+            "card",
+            "bg-gray-100",
+            "border-double",
+            "border-4",
+            "border-sky-600",
+            "rounded",
+            "m-2",
+            "text-center",
+            "p-2",
+            "font-semibold"
+          );
+
+          tarjeta.innerHTML = `
+          <p>${cotizacion.casa}</p>
+          <p>Precio de Compra: ${cotizacion.compra}</p>
+          <p>Precio de Venta: ${cotizacion.venta}</p>
+        `;
+
+          tarjetasContainer.appendChild(tarjeta);
+        }
+      }
+    } catch (error) {
+      console.error("Error al cargar los datos:", error);
+    }
+  }
+
+  obtenerDatosApi();
+
+  setInterval(obtenerDatosApi, 43200000); // 43,200,000 ms = 12 horas
 });
